@@ -8,7 +8,7 @@
 
 int midSquareGenerator() {
 	// Инициализация зерна (используется текущее время)
-    static unsigned long int seed = time(NULL);
+    static unsigned long long int seed = time(NULL);
 
 	// Возведение зерна в квадрат
     unsigned long long int squaredSeed = seed * seed; 
@@ -36,7 +36,7 @@ int midSquareGenerator() {
 
 
 int mersonMethod() {
-	static unsigned long int seed = time(NULL);
+	static unsigned long long int seed = time(NULL);
     static std::mt19937 gen(seed);
 	std::uniform_int_distribution<> uid(1, RAND_MAX);
     return (unsigned int) uid(gen);
@@ -44,13 +44,13 @@ int mersonMethod() {
 
 int PRNG()
 {
-  static unsigned long int seed = time(NULL); // зерно не должно быть 0
+  static unsigned long long int seed = time(NULL); // зерно не должно быть 0
   seed = (seed * 73129 + 95121) % 100000;
   return (unsigned int) seed;
 }
 
 int oldRand() {
-	static unsigned long int seed = time(NULL);
+	static unsigned long long int seed = time(NULL);
     seed = seed * 1103515245 + 12345;
     return (unsigned int)(seed / 65536) % 32768;
 }
