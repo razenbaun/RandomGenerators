@@ -6,7 +6,6 @@
 
 
 void showField(int (*randomGenerator)(), int points) {
-
 	int width = 30; 
 	HWND hwnd = GetConsoleWindow(); 
 	HDC hdc = GetDC(hwnd); 
@@ -22,16 +21,15 @@ void showField(int (*randomGenerator)(), int points) {
 		y = randomGenerator()%rect.bottom;
 
 		// Рисование точки
-		SetPixel(hdc, x, y, RGB(255, 255, 255));
+		SetPixel(hdc, x, y, RGB(0, 0, 0));
 
 		// Временная задержка (необязательно)
 		Sleep(20); 
 	} 
-
 	InvalidateRect(hwnd, NULL, TRUE);
 }
 
-void checkPeriod(int (*randomGenerator)()) {
+int checkPeriod(int (*randomGenerator)()) {
 	SItem *Head = NULL;
 	SItem *NewItem;
 
@@ -40,7 +38,7 @@ void checkPeriod(int (*randomGenerator)()) {
 	Head->next = NULL; // указывает на следующий элемент списка
 	Head->prev = Head; // указывает на последней элемент списка
 
-	long int data; 
+	int data; 
 
 	for (int i = 0; 10000; i++) {
 		data = randomGenerator();
@@ -52,25 +50,32 @@ void checkPeriod(int (*randomGenerator)()) {
 			FunctionList::addItem(Head, NewItem);
 		} else {
 			// если нет то вывожу id последнего элемента
-			std::cout<<(Head->prev->id)<<std::endl;
-			return;
+			return Head->prev->id;
 		}
 	}
 
-	std::cout<<(Head->next->id)<<std::endl;
+	return Head->prev->id;
 
 	FunctionList::deleteAllItems(Head);
 	// очищаю список
 }
+
+int checkAveragePeriod(int (*randomGenerator)(), int num) {
+	int average = 0;
+
+	for (int i=0; i < num; i++) {
+		average += checkPeriod(randomGenerator);
+	}
+
+	return average / num;
+}
+
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_CTYPE, "Russian_Russia.1251");
 
-	//checkPeriod(mersonMethod);
-
-	//showField(mersonMethod,300000);
 
 	system("pause");
 	return 0;
