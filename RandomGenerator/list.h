@@ -15,8 +15,6 @@ namespace FunctionList
 
 	void addItem(SItem *Head, SItem *NewItem);
 
-	bool checkItemData(SItem *Head, int data);
-
 	bool deleteItem(SItem *Head, int id);
 
 	bool deleteAllItems(SItem *Head);

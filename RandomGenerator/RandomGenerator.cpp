@@ -29,53 +29,43 @@ void showField(int (*randomGenerator)(), int points) {
 	InvalidateRect(hwnd, NULL, TRUE);
 }
 
-int checkPeriod(int (*randomGenerator)()) {
+void checkPeriod(int (*randomGenerator)()) {
 	SItem *Head = NULL;
 	SItem *NewItem;
 
 	Head = new SItem; // нулевой элемент списка
 	Head->id = -1;
+	Head->data = -1;
 	Head->next = NULL; // указывает на следующий элемент списка
 	Head->prev = Head; // указывает на последней элемент списка
 
 	int data; 
 
-	for (int i = 0; 10000; i++) {
+	while (true) {
 		data = randomGenerator();
 		// провер€ю есть ли элемент в списке
-		if (FunctionList::checkItemData(Head, data)) {
+		if (Head->prev->data != data) {
 			NewItem = new SItem;
 			NewItem->data = data;
 			// если да то добавл€ю элемент
 			FunctionList::addItem(Head, NewItem);
 		} else {
 			// если нет то вывожу id последнего элемента
-			return Head->prev->id;
+			std::cout<<data<<" ";
+			std::cout<<Head->prev->data<<std::endl;
+			std::cout<<(Head->prev->id) + 1<<std::endl;
+			FunctionList::deleteAllItems(Head);
+			return;
 		}
 	}
-
-	return Head->prev->id;
-
-	FunctionList::deleteAllItems(Head);
-	// очищаю список
 }
-
-int checkAveragePeriod(int (*randomGenerator)(), int num) {
-	int average = 0;
-
-	for (int i=0; i < num; i++) {
-		average += checkPeriod(randomGenerator);
-	}
-
-	return average / num;
-}
-
-
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_CTYPE, "Russian_Russia.1251");
-
+	system("color F0");
+	
+	showField(rand, 3000000);
 
 	system("pause");
 	return 0;

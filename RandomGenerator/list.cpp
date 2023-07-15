@@ -32,37 +32,11 @@ void FunctionList::addItem(SItem *Head, SItem *NewItem){
 
 }
 
-
-bool FunctionList::checkItemData(SItem *Head, int data){
-	// true - элемень найден
-	// false - нет
-
-	using namespace std;
-	SItem *Curr;
-	Curr = Head->next;
-	if(!Curr){
-		return true; 
-	}
-	while (Curr->next){
-		if(Curr->data == data){
-			// cout<<Curr->data<<" "<<data<<endl;
-			return false;
-		}
-		Curr = Curr->next;
-	}
-	if(Curr->data == data){
-		return true;
-	}
-
-	return true;
-}
-
 bool FunctionList::deleteItem(SItem *Head, int id){
 	// true - элемент удалён
 	// false - не найден
 
 	using namespace std;
-	cout<<"-----------------------------------"<<endl;
 	SItem *Curr;
 	SItem *prevCurr;
 	SItem *nextCurr;
